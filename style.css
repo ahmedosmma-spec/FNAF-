@@ -1,0 +1,229 @@
+/* ==========================================
+   FNaF Heba - Global Stylesheet
+   ========================================== */
+
+/* إعدادات أساسية */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    line-height: 1.6;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 100px; /* مسافة لحساب الهيدر الثابت */
+}
+
+/* الهيدر وقائمة التنقل (مع خاصية الإخفاء والإظهار) */
+header {
+    background-color: #141414;
+    border-bottom: 3px solid #8b0000;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    transition: top 0.4s ease-in-out; /* حركة سلسة عند الإخفاء */
+}
+
+/* كلاس إخفاء الهيدر بالأعلى */
+header.nav-hidden {
+    top: -120px;
+}
+
+.logo h1 {
+    color: #ff0000;
+    font-size: 1.8rem;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.logo h1 span {
+    color: #fff;
+    font-size: 1rem;
+    display: block;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #ccc;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+nav a:hover, nav a.active {
+    background-color: #8b0000;
+    color: #fff;
+}
+
+/* القسم الرئيسي (Hero Section) */
+main {
+    flex: 1;
+    padding: 20px 5%;
+}
+
+#hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.9));
+    border-radius: 10px;
+    border: 1px solid #333;
+    margin-bottom: 30px;
+}
+
+#hero h2 {
+    color: #ff1a1a;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    color: #bbb;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #8b0000;
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+    border: 1px solid #ff0000;
+}
+
+.btn:hover {
+    background-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+}
+
+/* الشبكة والكروت (Cards Grid) */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #141414;
+    border: 1px solid #2a2a2a;
+    border-right: 4px solid #8b0000;
+    padding: 20px;
+    border-radius: 8px;
+    transition: transform 0.3s, border-color 0.3s;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #ff0000;
+}
+
+.card h3, .card h2 {
+    color: #ff3333;
+    margin-bottom: 10px;
+}
+
+.card-link {
+    color: #ff4d4d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* زر فان تايم بوت العائم في الزاوية */
+.funtime-bot-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #8b0000;
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+    transition: transform 0.3s ease, background 0.3s ease;
+    border: 2px solid #ff0000;
+}
+
+.funtime-bot-btn:hover {
+    transform: scale(1.08);
+    background: #ff0000;
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.9);
+}
+
+/* الفوتر */
+footer {
+    background-color: #141414;
+    text-align: center;
+    padding: 15px;
+    border-top: 2px solid #8b0000;
+    margin-top: 40px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* التجاوب مع الجوال */
+@media (max-width: 768px) {
+    body {
+        padding-top: 140px;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 10px 3%;
+    }
+
+    nav ul {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    nav a {
+        padding: 5px 8px;
+        font-size: 0.9rem;
+    }
+
+    #hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .funtime-bot-btn {
+        bottom: 15px;
+        left: 15px;
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+}
