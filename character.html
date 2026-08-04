@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الشخصية | FNaF Heba</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .character-detail-card {
+            background: #141414;
+            border: 2px solid #8b0000;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
+        }
+
+        .character-detail-card h2 {
+            color: #ff0000;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: #8b0000;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .character-bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #222;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: 1px solid #444;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #8b0000;
+            border-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>فناف هبه <span>FNaF Heba</span></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="story.html">القصة الكاملة</a></li>
+                <li><a href="theories.html">النظريات</a></li>
+                <li><a href="books.html">الكتب</a></li>
+                <li><a href="movies.html">الأفلام</a></li>
+                <li><a href="info.html" class="active">المعلومات</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="character-detail-card">
+            <span class="info-badge" id="charRole">جاري التحميل...</span>
+            <h2 id="charName">اسم الشخصية</h2>
+            <div class="character-bio" id="charBio">
+                جاري جلب تفاصيل ومعلومات الشخصية من الأرشيف...
+            </div>
+            <a href="info.html" class="back-btn">← العودة للموسوعة</a>
+        </div>
+    </main>
+
+    <a href="bot.html" class="funtime-bot-btn" title="تحدث مع فان تايم بوت!">
+        🤖 <span>فان تايم بوت</span>
+    </a>
+
+    <footer>
+        <p>&copy; 2026 موقع فناف هبه - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- سكربت قراءة التفاصيل وتغيير البيانات تلقائياً -->
+    <script src="script.js"></script>
+    <script>
+        // تشغيل دالة جلب البيانات الخاصة بالشخصية
+        loadCharacterDetails();
+    </script>
+</body>
+</html>
