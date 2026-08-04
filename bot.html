@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funtime Bot - الشات العصري</title>
+    <style>
+        :root {
+            --bg-color: #0f0c20;
+            --panel-bg: #18152e;
+            --chat-bg: #120e24;
+            --accent-purple: #7b2cbf;
+            --accent-glow: #9d4edd;
+            --text-light: #f1f1f7;
+            --text-dim: #a0a0c0;
+            --user-msg: #240046;
+            --bot-msg: #1f1b3a;
+            --border-color: #2a244d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(24, 21, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+        }
+
+        .logo span {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a.active, nav a:hover {
+            color: var(--accent-glow);
+        }
+
+        .chat-container {
+            max-width: 900px;
+            width: 95%;
+            margin: 20px auto;
+            background: var(--panel-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 160px);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 18px 25px;
+            background: rgba(10, 8, 22, 0.4);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chat-header h3 {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .chat-header span {
+            font-size: 0.8rem;
+            color: #4cc9f0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--chat-bg);
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 14px 20px;
+            border-radius: 18px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            white-space: pre-line;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background: var(--bot-msg);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+            border-bottom-right-radius: 4px;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #3c096c, #5a189a);
+            color: #fff;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 4px 15px rgba(90, 24, 154, 0.3);
+        }
+
+        /* 🚀 منطقة الإدخال وزر الإرسال العصرية 🚀 */
+        .chat-input-area {
+            padding: 15px 20px;
+            background: rgba(15, 12, 32, 0.95);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-input-area input {
+            width: 100%;
+            padding: 14px 22px;
+            border-radius: 30px;
+            border: 2px solid var(--border-color);
+            background: #0d0a1a;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .chat-input-area input:focus {
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.3), inset 0 2px 5px rgba(0,0,0,0.5);
+            background: #120e24;
+        }
+
+        .chat-input-area input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #7b2cbf, #ff007f);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(255, 0, 127, 0.3);
+            white-space: nowrap;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 25px rgba(255, 0, 127, 0.5);
+            background: linear-gradient(135deg, #9d4edd, #ff2a9d);
+        }
+
+        .send-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .send-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .send-btn:hover svg {
+            transform: translateX(-3px) rotate(-10deg);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Funtime Bot 🎪</h1>
+            <span>المساعد الموسوعي الشامل</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#" class="active">البوت</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="chat-container">
+        <div class="chat-header">
+            <h3>🤖 فان تايم بوت (Funtime Bot)</h3>
+            <span>متصل الآن | جاهز للدردشة والتقارير الموسوعية</span>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                مرحباً بك! أنا **فان تايم بوت (Funtime Bot)**. 🎪
+يمكننا الدردشة بحرية في أي موضوع، أو الخوض في أسرار وقصة Five Nights at Freddy's العميقة. اكتب لي ما تريد وسأجيبك بتقرير موسوعي مفصل!
+            </div>
+        </div>
+
+        <!-- 🚀 منطقة الكتابة والإرسال المعدلة بالتصميم العصري 🚀 -->
+        <div class="chat-input-area">
+            <div class="input-wrapper">
+                <input type="text" id="userInput" placeholder="اكتب سؤالك أو ابدأ الدردشة هنا..." onkeypress="handleKeyPress(event)">
+            </div>
+            <button class="send-btn" onclick="sendMessage()">
+                <span>إرسال</span>
+                <svg viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; جميع الحقوق محفوظة - Funtime Bot</p>
+    </footer>
+
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const messageContainer = document.getElementById('chatMessages');
+            const userText = inputField.value.trim();
+
+            if (userText === '') return;
+
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'message user-message';
+            userMsgDiv.textContent = userText;
+            messageContainer.appendChild(userMsgDiv);
+
+            inputField.value = '';
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message bot-message';
+            loadingDiv.textContent = '🤖 جاري معالجة الرد الموسوعي...';
+            messageContainer.appendChild(loadingDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            const botResponse = await generateUltraDetailedResponse(userText);
+
+            loadingDiv.innerText = botResponse;
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        async function generateUltraDetailedResponse(q) {
+            let text = q.toLowerCase().trim();
+
+            if (text === "اهلا" || text === "أهلا" || text === "مرحبا" || text === "السلام عليكم" || text === "سلام" || text === "hi" || text === "hello" || text.length <= 4) {
+                return `🤖 أهلاً بك يا صديقي! أنا فان تايم بوت (Funtime Bot). 🎪\n\nسعيد جداً بتواجدك معي اليوم. كيف يمكنني مساعدتك؟ هل تريد أن نتحدث عن أسرار وقصة فناف (FNaF) العميقة، أم تفضل أن نخوض معاً في دردشة موسوعية مفتوحة وطويلة؟ أخبرني بما يدور في ذهنك! ✨`;
+            }
+
+            if (text.includes("أكمل") || text.includes("اكمل") || text.includes("البقية") || text.includes("تابع")) {
+                return `💬 **تقرير المحادثة والدردشة العامة الموسوعية (الجزء المكمل):**\n\n---\n\n### 📖 4. تحليل أدبي وفلسفي للسرد القصصي\n* **رمزية الآلات والأرواح:** الدمج بين الميكانيكا الصماء والروح المعذبة.\n* **مفهوم الـ Agony:** الطاقة النفسية الناتجة عن الصدمات.\n\n---\n🤝 **أنا جاهز دائماً لمواصلة النقاش حول أي موضوع آخر!**`;
+            }
+
+            if (text.includes("فناف") || text.includes("fnaf") || text.includes("قصة") || text.includes("تايم لاين") || text.includes("احداث") || text.includes("افتون") || text.includes("سبرينج تراب") || text.includes("شخصيات")) {
+                let webData = "";
+                try {
+                    let response = await fetch("https://ar.wikipedia.org/api/rest_v1/page/summary/فايف_نايتس_أت_فريديز");
+                    let data = await response.json();
+                    if (data.extract) {
+                        webData = `🌐 **معلومات حية جُلبت من الويب حول السلسلة:**\n${data.extract}\n\n---\n`;
+                    }
+                } catch (error) {
+                    webData = "";
+                }
+
+                return webData + `📚 **الموسوعة التاريخية الشاملة لقصة وعالم Five Nights at Freddy's (فناف):**\n\n---\n\n### 🏛️ الجزء الأول: المدخل الفلسفي والسرد البيئي\nسلسلة FNaF ليست مجرد ألعاب رعب بل ملحمة غموض معقدة تمتد لأكثر من 5 عقود.`;
+            }
+
+            return `💬 **تقرير المحادثة الموسوعية حول: "${q}"**\n\n---\n\n### 🌟 1. المدخل والتحليل العام\nأهلاً بك! الموضوع الذي طرحته فتح الباب أمام نقاش تحليلي ممتع وعميق.\n\n*(اكتب "أكمل" للحصول على باقي الجزء!)*`;
+        }
+    </script>
+</body>
+</html>
